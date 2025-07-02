@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HLS Video Player</title>
+  <!-- Include HLS.js library for HLS playback -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+  <h1>HLS Video Player</h1>
+  
+  <!-- Video player container -->
+  <div>
+    <!-- <video id="videoPlayer" controls autoplay playsinline width="640" height="360">
+      Your browser does not support the video tag or HLS playback.
+    </video> -->
+    <video id="videoPlayer" src="http://localhost:8080/output/playlist.m3u8" controls autoplay playsinline height="300" width="400">
+    </video>
+  </div>
+
+  <script>
+    // HLS.js setup
+    if (Hls.isSupported()) {
+      var video = document.getElementById('videoPlayer');
+      var hls = new Hls();
+    //   var manifestURL = 'https://example.com/path/to/master.m3u8'; // Replace with your HLS master playlist URL
+      var manifestURL = 'http://localhost:8080/output/playlist.m3u8'; // Replace with your HLS master playlist URL
+      hls.loadSource(manifestURL);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, function () {
+        // Video and manifest have been loaded
+        console.log('HLS manifest parsed');
+      });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      // For Safari
+      video.src = manifestURL;
+      video.addEventListener('loadedmetadata', function () {
+        // Video metadata loaded
+        console.log('Video metadata loaded');
+      });
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Streaming Example</title>
+    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- <video id="video" class="video-js vjs-default-skin" controls preload="auto" width="640" height="360"></video> -->
+    <!-- src="http://www.streambox.fr/playlists/test_001/stream.m3u8" -->
+    <video id='hls-example'  class="video-js vjs-default-skin" width="400" height="300" controls>
+    <source type="application/x-mpegURL" 
+        src="http://localhost:8080/output/playlist.m3u8"
+    >
+    </video>
+    <!-- <script src="https://vjs.zencdn.net/7.11.4/video.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-hls@latest/dist/videojs-contrib-hls.js"></script>
+    <script>
+        var player = videojs('video');
+        player.src({
+            src: 'http://localhost:8080/output/playlist.m3u8',
+            type: 'application/x-mpegURL'
+        });
+        player.play();
+    </script> -->
+    <script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.14.1/videojs-contrib-hls.js"></script>
+    <script src="https://vjs.zencdn.net/7.2.3/video.js"></script>
+    
+    <script>
+    var player = videojs('hls-example');
+    player.play();
+    </script>
+</body>
+</html>
+
+
+
+<!-- CSS  -->
+<link href="https://vjs.zencdn.net/7.2.3/video-js.css" rel="stylesheet">
+
+
+<!-- HTML -->
+
+
+<!-- JS code -->
+<!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->

@@ -1,0 +1,35 @@
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "PUT",
+            "POST",
+            "DELETE",
+            "GET",
+            "HEAD"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": []
+    }
+]
+
+http-server -p 8080 --cors
+
+add cors behaviour in the behaviour settings
+
+cretae a distribution
+add bucket as origin 
+edit the behaviour to allow cors
+    cache and origin request policy(not needed)
+    response header policy
+
+achieve live streaming
+finish terraform scripts ---> cdn and s3
+
+code to convert video to hls format and create aws boto scripts to upload folder to s3 
+this should return a url that should be written to a csv file 
+ssl+cdn
